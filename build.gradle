@@ -1,18 +1,38 @@
 plugins {
-	id 'java'
+    id 'java'
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+    testImplementation('org.junit.jupiter:junit-jupiter:5.6.0')
+}
+
+task testA(type: Test) {
+    useJUnitPlatform()
+    include '**/TestLinkedListPart1.class'
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task testB(type: Test) {
+    useJUnitPlatform()
+    include '**/TestLinkedListPart2.class'
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
+task testAllGroups {
+    dependsOn testA, testB
 }
 
 test {
-	useJUnitPlatform()
-	testLogging {
-		events "passed", "skipped", "failed"
-	}
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
